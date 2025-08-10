@@ -85,8 +85,8 @@
 
     </div>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmr2wlEovvkb90lAbMBzD89XUCOPM7kGw">
-    </script>
+    <!-- Removed Google Maps API script -->
+
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
         crossorigin="anonymous"></script>
@@ -149,11 +149,6 @@
                                 const lat = position.coords.latitude.toFixed(8);
                                 const long = position.coords.longitude.toFixed(8);
 
-                                // Optional: Initialize Google Maps LatLng object (if needed)
-                                const latLng = new google.maps.LatLng(lat, long);
-
-                                // console.log('Google Maps LatLng:', latLng.toString());
-
                                 // Return as "lat, long" string
                                 resolve(`${lat}, ${long}`);
                             },
@@ -201,15 +196,10 @@
                     success: function(response) {
                         $('#loadingOverlay').hide();
                         alert('Profile log saved successfully!');
-                        // Hide loading overlay
-
-                        // Clear input or update UI here if needed
                     },
                     error: function(xhr) {
                         $('#loadingOverlay').hide();
                         alert('Error saving profile log.');
-                        // Hide loading overlay
-
                     }
                 });
             });

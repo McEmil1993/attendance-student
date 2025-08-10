@@ -39,6 +39,23 @@
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('assets/adminlte/css/adminlte.css') }}" />
+    <style>
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 1.5rem;
+            text-align: center;
+            padding-top: 20%;
+            font-family: Arial, sans-serif;
+        }
+    </style>
     <!--end::Required Plugin(AdminLTE)-->
 </head>
 <!--end::Head-->
@@ -46,6 +63,7 @@
 
 <body class="lockscreen bg-body-secondary"
     style="background-image: url({{ asset('assets/img/login-bg/emil_wallpaper.png') }}) !important; ">
+    <div id="loadingOverlay">please wait...</div>
     <div class="lockscreen-wrapper">
 
         <div class="lockscreen-name text-white">Input ID-Number</div>
@@ -86,107 +104,117 @@
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>
-    const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-    const Default = {
-        scrollbarTheme: 'os-theme-light',
-        scrollbarAutoHide: 'leave',
-        scrollbarClickScroll: true,
-    };
-    document.addEventListener('DOMContentLoaded', function() {
-        const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-        if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
-            OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                scrollbars: {
-                    theme: Default.scrollbarTheme,
-                    autoHide: Default.scrollbarAutoHide,
-                    clickScroll: Default.scrollbarClickScroll,
-                },
-            });
-        }
-    });
+        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
+        const Default = {
+            scrollbarTheme: 'os-theme-light',
+            scrollbarAutoHide: 'leave',
+            scrollbarClickScroll: true,
+        };
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
+            if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined) {
+                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
+                    scrollbars: {
+                        theme: Default.scrollbarTheme,
+                        autoHide: Default.scrollbarAutoHide,
+                        clickScroll: Default.scrollbarClickScroll,
+                    },
+                });
+            }
+        });
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-    $(document).ready(function() {
-        // Function to get public IP asynchronously
-        async function getMyIp() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                // console.log('Public IP:', data.ip);
-                return data.ip;
-            } catch (error) {
-                console.error('Error getting IP:', error);
-                return '0.0.0.0'; // fallback IP
+        $(document).ready(function() {
+            // Function to get public IP asynchronously
+            async function getMyIp() {
+                try {
+                    const response = await fetch('https://api.ipify.org?format=json');
+                    const data = await response.json();
+                    // console.log('Public IP:', data.ip);
+                    return data.ip;
+                } catch (error) {
+                    console.error('Error getting IP:', error);
+                    return '0.0.0.0'; // fallback IP
+                }
             }
-        }
 
-        // Function to get lat,long as "lat, long" string, returns Promise<string>
-        function getLatLong() {
-            return new Promise((resolve) => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            // lat,long from browser geolocation
-                            const lat = position.coords.latitude.toFixed(8);
-                            const long = position.coords.longitude.toFixed(8);
+            // Function to get lat,long as "lat, long" string, returns Promise<string>
+            function getLatLong() {
+                return new Promise((resolve) => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                // lat,long from browser geolocation
+                                const lat = position.coords.latitude.toFixed(8);
+                                const long = position.coords.longitude.toFixed(8);
 
-                            // Optional: Initialize Google Maps LatLng object (if needed)
-                            const latLng = new google.maps.LatLng(lat, long);
+                                // Optional: Initialize Google Maps LatLng object (if needed)
+                                const latLng = new google.maps.LatLng(lat, long);
 
-                            // console.log('Google Maps LatLng:', latLng.toString());
+                                // console.log('Google Maps LatLng:', latLng.toString());
 
-                            // Return as "lat, long" string
-                            resolve(`${lat}, ${long}`);
-                        },
-                        (error) => {
-                            console.warn('Geolocation error:', error);
-                            resolve(null);
-                        }, {
-                            enableHighAccuracy: true,
-                            timeout: 10000,
-                            maximumAge: 0,
-                        }
-                    );
-                } else {
-                    console.warn('Geolocation not supported');
-                    resolve(null);
-                }
+                                // Return as "lat, long" string
+                                resolve(`${lat}, ${long}`);
+                            },
+                            (error) => {
+                                console.warn('Geolocation error:', error);
+                                resolve(null);
+                            }, {
+                                enableHighAccuracy: true,
+                                timeout: 10000,
+                                maximumAge: 0,
+                            }
+                        );
+                    } else {
+                        console.warn('Geolocation not supported');
+                        resolve(null);
+                    }
+                });
+            }
+            $('.lockscreen-credentials button').click(async function(e) {
+                e.preventDefault();
+
+                // Show loading overlay
+                $('#loadingOverlay').show();
+
+                var idNumber = $('.lockscreen-credentials input').val();
+
+                // Get the public IP
+                var publicIp = await getMyIp();
+
+                // Get the lat,long string (or null)
+                var latLong = await getLatLong();
+
+                // Send data to backend
+                $.ajax({
+                    url: '/profile-log',
+                    type: 'POST',
+                    data: {
+                        id_number: idNumber,
+                        client_ip: publicIp,
+                        lat_long: latLong
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#loadingOverlay').hide();
+                        alert('Profile log saved successfully!');
+                        // Hide loading overlay
+
+                        // Clear input or update UI here if needed
+                    },
+                    error: function(xhr) {
+                        $('#loadingOverlay').hide();
+                        alert('Error saving profile log.');
+                        // Hide loading overlay
+
+                    }
+                });
             });
-        }
-        $('.lockscreen-credentials button').click(async function(e) {
-            e.preventDefault();
 
-            var idNumber = $('.lockscreen-credentials input').val();
-
-            // Get the public IP
-            var publicIp = await getMyIp();
-
-            // Get the lat,long string (or null)
-            var latLong = await getLatLong();
-
-            // Send data to backend
-            $.ajax({
-                url: '/profile-log',
-                type: 'POST',
-                data: {
-                    id_number: idNumber,
-                    client_ip: publicIp,
-                    lat_long: latLong
-                },
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    alert('Profile log saved successfully!');
-                    // You can clear input or update UI here
-                },
-                error: function(xhr) {
-                    alert('Error saving profile log.');
-                }
-            });
         });
-    });
     </script>
 
 

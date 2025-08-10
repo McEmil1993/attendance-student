@@ -14,7 +14,7 @@ use App\Http\Controllers\AttendanceController;
 //     return view('welcome');
 // });
 
-
+Route::post('/profile-log', [App\Http\Controllers\StudentProfileController::class, 'store']);
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -23,15 +23,15 @@ Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+    Route::get('/', function () {
+        return view('student_login');
+    });
 
 
 Route::middleware('auth')->group(function () {
 
 
-    Route::get('/', function () {
-        return view('main.dashboard.index');
-    });
+
 
     Route::get('/dashboard', function () {
         return view('main.dashboard.index');

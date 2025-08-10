@@ -11,7 +11,7 @@
                             <div class="flex-grow-1">{{ Auth::user()->name }}</div>
                             <div class="menu-caret ms-auto"></div>
                         </div>
-                        <small>Senior Fullstack developer</small>
+                        <small>Senior Fullstack developer &&</small>
                         <small>{{ Auth::user()->position }}</small>
 
                     </div>

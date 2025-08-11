@@ -43,8 +43,7 @@
                 @foreach($students as $student)
                 <tr class="odd gradeX">
                     <td width="1%" class="fw-bold">{{ $student->id_number }}</td>
-                    <td width="1%" class="with-img"><img src="{{ asset('assets/img/user/user-12.jpg') }}"
-                            class="rounded h-30px my-n1 mx-n1" /></td>
+                    <td width="1%" class="with-img"><img src="{{ $student->student_profile_path ? asset($student->student_profile_path) : asset('assets/img/user/user-12.jpg') }}"  class="rounded h-30px my-n1 mx-n1" /></td>
                     <td>{{ $student->lastname }}, {{ $student->firstname }} {{ $student->middle_initial }}.</td>
                     <td>{{ $student->gender }}</td>
                     <td>{{ $student->course }} {{ $student->year }}</td>

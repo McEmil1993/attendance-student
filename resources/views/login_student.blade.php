@@ -39,7 +39,7 @@
 				<div class="bg-cover"></div>
 				<div class="brand">
 					<span class="logo">
-						<img src="{{ asset('assets/img/tmc.png') }}" alt="Logo" style="height: 150px;" />
+						<img src="{{ asset('assets/img/ccs_logo.png') }}" alt="Logo" style="height: 150px;" />
 					</span>
 					<b>Student</b> Login
 				</div>

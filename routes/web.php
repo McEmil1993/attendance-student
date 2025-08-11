@@ -23,10 +23,24 @@ Route::post('/login', [AuthController::class, 'login']);
 // Route::post('/register', [AuthController::class, 'register']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/', function () {
-        return view('student_login');
-    });
+    Route::get('/', action: function () {
+        return view('login_student');
+    })->name("student.login");
 
+
+    //     Route::get('/student_updates', function () {
+    //     return view('student_updates');
+    // });
+
+
+
+
+Route::middleware('student.auth')->group(function () {
+    Route::get('/student_updates', [App\Http\Controllers\StudentProfileController::class, 'index']);
+    Route::post('/students-ups', [App\Http\Controllers\StudentProfileController::class, 'updateProfile'])->name('students-ups');
+
+    Route::post('/student/logout', [App\Http\Controllers\StudentProfileController::class, 'logout'])->name('student.logout');
+});
 
 Route::middleware('auth')->group(function () {
 

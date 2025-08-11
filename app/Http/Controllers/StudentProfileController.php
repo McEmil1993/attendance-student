@@ -6,12 +6,31 @@ use Illuminate\Http\Request;
 use App\Models\ProfileLog;
 use App\Models\Student;
 
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 class StudentProfileController extends Controller
 {
     //
     public function index()
     {
-        return view("student_login");
+        $stu = Auth::guard('student')->user();
+
+        if (!$stu) {
+            Log::warning('Student not authenticated.');
+            abort(403, 'Unauthorized');
+        }
+
+        $student = DB::table('students')->where('id', $stu->id)->first();
+
+        if (!$student) {
+            Log::warning('Student not found for ID: ' . $stu->id);
+            abort(404, 'Student not found');
+        }
+
+        return view('student_updates', compact('student'));
     }
 
     public function store(Request $request)
@@ -53,13 +72,63 @@ class StudentProfileController extends Controller
 
         // Return message based on student existence
         if ($student) {
+
+            Auth::guard('student')->login($student);
+            $request->session()->regenerate();
             return response()->json([
+                'status' =>'success',
                 'message' => 'Login attempt logged successfully.'
             ]);
         } else {
             return response()->json([
+                'status' =>'success',
                 'message' => 'Student not found.'
             ]);
         }
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $request->validate([
+            'firstname' => 'required|string|max:100',
+            'middle_initial' => 'nullable|string|max:5',
+            'lastname' => 'required|string|max:100',
+            'address' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg'
+        ]);
+
+        $student = Student::findOrFail($request->student_id);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $filename);
+
+            // Optionally delete old image
+            if ($student->image_path && File::exists(public_path($student->image_path))) {
+                File::delete(public_path($student->image_path));
+            }
+
+            $student->student_profile_path = 'images/' . $filename;
+        }
+
+        $student->firstname = $request->firstname;
+        $student->middle_initial = $request->middle_initial;
+        $student->lastname = $request->lastname;
+        $student->address = $request->address;
+        $student->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::guard('student')->logout();
+
+        // Optional: invalidate the session
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // or wherever your login page is
     }
 }

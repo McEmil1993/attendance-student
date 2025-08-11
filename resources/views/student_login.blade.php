@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Lockscreen</title>
+    <title>Lockscreen</title>
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -84,7 +84,7 @@
         </div>
 
     </div>
-
+ 
     <!-- Removed Google Maps API script -->
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -195,7 +195,9 @@
                     },
                     success: function(response) {
                         $('#loadingOverlay').hide();
-                        alert('Profile log saved successfully!');
+                        location.href = "/student_updates"
+
+                        // alert('Profile log saved successfully!');
                     },
                     error: function(xhr) {
                         $('#loadingOverlay').hide();

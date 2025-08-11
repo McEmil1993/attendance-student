@@ -96,6 +96,8 @@
         <div class="col-12">
             <div class="card border-0 text-center">
                 <div class="card-body">
+                    <a href="javascript:;" id="audioBtn" class="btn btn-default btn-sm me-1 mb-1">Name</a>
+                    <a href="javascript:;" id="audioBtn2" class="btn btn-default btn-sm me-1 mb-1">Score</a>
                     <table id="data-table-assess" width="100%"
                         class="table table-striped table-bordered align-middle text-nowrap">
                         <thead>
@@ -127,6 +129,91 @@
     <script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
     <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
     <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+<script>
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+if (!window.SpeechRecognition) {
+    console.error("Speech Recognition not supported.");
+} else {
+    const recog2 = new window.SpeechRecognition();
+    recog2.lang = 'en-US'; // pwede gawing 'fil-PH'
+    recog2.interimResults = false;
+    recog2.continuous = false; // auto stop
+
+    recog2.onstart = () => {
+        console.log("🎤 Listening for score...");
+    };
+
+    recog2.onresult = (event) => {
+        let spokenText = event.results[0][0].transcript.trim();
+        
+        // Try parse to number
+        let scoreValue = parseInt(spokenText.replace(/[^0-9]/g, ''), 10);
+
+        if (isNaN(scoreValue)) {
+            alert("Hindi ko naintindihan ang numero.");
+            return;
+        }
+
+        // Set to input & focus
+        const scoreInput = document.querySelector('.score-input');
+        scoreInput.value = scoreValue;
+        scoreInput.focus(); // <-- activate / focus the input
+
+        // Trigger "input" event kung may listener
+        scoreInput.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    recog2.onerror = (e) => {
+        console.error("Speech error:", e.error);
+    };
+
+    recog2.onend = () => {
+        console.log("✅ Finished listening for score.");
+    };
+
+    document.getElementById('audioBtn2').addEventListener('click', () => {
+        try { recog2.start(); } catch(e) {}
+    });
+}
+</script>
+    <script>
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+
+if (!window.SpeechRecognition) {
+    console.error("Speech Recognition not supported.");
+} else {
+    const recog = new window.SpeechRecognition();
+    recog.lang = 'en-US'; // or 'fil-PH'
+    recog.interimResults = false;
+    recog.continuous = false; // auto stop when done
+
+    recog.onstart = () => {
+        console.log("🎤 Listening...");
+    };
+
+    recog.onresult = (event) => {
+        const text = event.results[0][0].transcript;
+        const searchInput = document.getElementById('dt-search-1');
+        searchInput.value = text;
+
+        // trigger "input" event para gumana sa DataTables search
+        searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    recog.onerror = (e) => {
+        console.error("Speech error:", e.error);
+    };
+
+    recog.onend = () => {
+        console.log("✅ Finished listening.");
+    };
+
+    document.getElementById('audioBtn').addEventListener('click', () => {
+        try { recog.start(); } catch(e) {}
+    });
+}
+</script>
 
     <script>
         let assessTable;
@@ -228,6 +315,18 @@
                             score: score, // <-- send the number value, not jQuery object
                         },
                         success: function(response) {
+                            if(score != 0){
+                                $('.change-b-'+studentId).removeClass('bg-red-500')
+                                $('.change-b-'+studentId).html('Done')
+                                $('.change-b-'+studentId).addClass('bg-success-600')
+                            }else{
+                                $('.change-b-'+studentId).removeClass('bg-success-500')
+                                $('.change-b-'+studentId).html('Pending')
+                                $('.change-b-'+studentId).addClass('bg-red-600')
+                            }
+                            
+
+                          
                             console.log(response);
                         },
                         error: function(xhr) {
@@ -304,7 +403,7 @@
                                                 >
                                             </div>
                                             <div class="col-6">
-                                                <label class="badge ${item.score === 0 ? 'bg-red-500' : 'bg-success-600'}">
+                                                <label class="change-b-${item.id} badge ${item.score === 0 ? 'bg-red-500' : 'bg-success-600'}">
                                                 ${item.score ===  0 ? 'Pending' : 'Done'}
                                                 </label>
                                             </div>

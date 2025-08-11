@@ -50,7 +50,7 @@
 						<form id="updateProfileForm" enctype="multipart/form-data">
 							@csrf
 							<input type="hidden" name="student_id" value="{{ $student->id }}">
-							<input type="file" id="profileImageInput" name="image" accept="image/*" capture="environment" style="display:none;" />
+							<input type="file" id="profileImageInput" name="image" accept="image/*" style="display:none;" />
 
 							<div class="table-responsive form-inline">
 								<table class="table table-profile align-middle">

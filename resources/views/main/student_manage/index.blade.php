@@ -6,6 +6,10 @@
 <link href="{{ asset('assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
     rel="stylesheet" />
 <!-- ================== END page-css ================== -->
+
+<!-- ================== BEGIN page-css ================== -->
+<link href="{{ asset('assets/plugins/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+<!-- ================== END page-css ================== -->
 @endpush
 
 @section('content')
@@ -32,7 +36,7 @@
                     <th width="1%"></th>
                     <th width="1%" data-orderable="false"></th>
                     <th width="1%">Fullname</th>
-                    <th width="1%" >Gender</th>
+                    <th width="1%">Gender</th>
                     <th width="1%">Course Year</th>
                     <th width="1%">Block</th>
                     <th class="text-nowrap">Address</th>
@@ -43,7 +47,7 @@
                 @foreach($students as $student)
                 <tr class="odd gradeX">
                     <td width="1%" class="fw-bold">{{ $student->id_number }}</td>
-                    <td width="1%" class="with-img"><img src="{{ $student->student_profile_path ? asset($student->student_profile_path) : asset('assets/img/user/user-12.jpg') }}"  class="rounded h-30px my-n1 mx-n1" /></td>
+                    <td width="1%" class="with-img"><a href="{{ $student->student_profile_path ? asset($student->student_profile_path) : asset('assets/img/user/user-12.jpg') }}" data-lightbox="gallery-group-1"><img src="{{ $student->student_profile_path ? asset($student->student_profile_path) : asset('assets/img/user/user-12.jpg') }}" class="rounded h-30px my-n1 mx-n1" /></a></td>
                     <td>{{ $student->lastname }}, {{ $student->firstname }} {{ $student->middle_initial }}.</td>
                     <td>{{ $student->gender }}</td>
                     <td>{{ $student->course }} {{ $student->year }}</td>
@@ -285,122 +289,125 @@
 <script src="{{ asset('assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/isotope-layout/dist/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/lightbox2/dist/js/lightbox.min.js') }}"></script>
 <script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
 <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
 <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+
+<script src="../assets/js/demo/gallery.demo.js"></script>
 <!-- ================== END page-js ================== -->
 
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    $("#newCourseForm").on("submit", function(e) {
-        e.preventDefault();
+        $("#newCourseForm").on("submit", function(e) {
+            e.preventDefault();
 
-        let isValid = true;
+            let isValid = true;
 
-        // Clear invalid classes before checking
-        $("#newCourseForm input").removeClass("is-invalid");
+            // Clear invalid classes before checking
+            $("#newCourseForm input").removeClass("is-invalid");
 
-        // Loop sa bawat input para sa validation
-        $("#newCourseForm input").each(function() {
-            if ($(this).val().trim() === "") {
-                $(this).addClass("is-invalid");
-                isValid = false;
+            // Loop sa bawat input para sa validation
+            $("#newCourseForm input").each(function() {
+                if ($(this).val().trim() === "") {
+                    $(this).addClass("is-invalid");
+                    isValid = false;
+                }
+            });
+
+            // Kung hindi valid, wag i-submit
+            if (!isValid) {
+                return;
             }
-        });
 
-        // Kung hindi valid, wag i-submit
-        if (!isValid) {
-            return;
-        }
+            // Kung pasado, send data via AJAX
+            $.ajax({
+                url: "/students", // route papunta sa store method
+                method: "POST",
+                data: $(this).serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection
+                },
+                success: function(response) {
+                    alert("Student added successfully!");
+                    $("#new-student").modal("hide");
+                    $("#newCourseForm")[0].reset();
+                    setTimeout(function() {
+                        location.reload(); // Reload the page to see the new student
+                    }, 3000); // Optional: delay for better UX
+                    // Pwede mo rin i-refresh yung table dito
+                },
+                error: function(xhr) {
+                    alert("Something went wrong. Please try again. " + xhr.responseJSON.message);
+                }
+            });
 
-        // Kung pasado, send data via AJAX
-        $.ajax({
-            url: "/students", // route papunta sa store method
-            method: "POST",
-            data: $(this).serialize(),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection
-            },
-            success: function(response) {
-                alert("Student added successfully!");
-                $("#new-student").modal("hide");
-                $("#newCourseForm")[0].reset();
-                setTimeout(function() {
-                    location.reload(); // Reload the page to see the new student
-                }, 3000); // Optional: delay for better UX
-                // Pwede mo rin i-refresh yung table dito
-            },
-            error: function(xhr) {
-                alert("Something went wrong. Please try again. " + xhr.responseJSON.message);
-            }
         });
 
     });
-
-});
 </script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-    // PAG-CLICK NG EDIT BUTTON
-    $(document).on("click", ".btn-edit", function () {
-        let studentId = $(this).data("id");
+        // PAG-CLICK NG EDIT BUTTON
+        $(document).on("click", ".btn-edit", function() {
+            let studentId = $(this).data("id");
 
-        $.ajax({
-            url: "/students/" + studentId + "/edit",
-            type: "GET",
-            success: function (data) {
-                
-                $("#edit-id").val(data.id);
-                $("#edit-idnumber").val(data.id_number);
-                $("#edit-firstname").val(data.firstname);
-                $("#edit-lastname").val(data.lastname);
-                $("#edit-middle_initial").val(data.middle_initial);
-                $("#edit-gender").val(data.gender);
-                $("#edit-course").val(data.course);
-                $("#edit-year").val(data.year);
-                $("#edit-block").val(data.block);
-                $("#edit-address").val(data.address);
+            $.ajax({
+                url: "/students/" + studentId + "/edit",
+                type: "GET",
+                success: function(data) {
 
-                // Show Modal
-                $("#edit-student").modal("show");
-            },
-            error: function () {
-                alert("Error fetching student data.");
-            }
+                    $("#edit-id").val(data.id);
+                    $("#edit-idnumber").val(data.id_number);
+                    $("#edit-firstname").val(data.firstname);
+                    $("#edit-lastname").val(data.lastname);
+                    $("#edit-middle_initial").val(data.middle_initial);
+                    $("#edit-gender").val(data.gender);
+                    $("#edit-course").val(data.course);
+                    $("#edit-year").val(data.year);
+                    $("#edit-block").val(data.block);
+                    $("#edit-address").val(data.address);
+
+                    // Show Modal
+                    $("#edit-student").modal("show");
+                },
+                error: function() {
+                    alert("Error fetching student data.");
+                }
+            });
         });
-    });
 
-    $("#editStudentForm").submit(function (e) {
-        e.preventDefault();
+        $("#editStudentForm").submit(function(e) {
+            e.preventDefault();
 
-        let formData = $(this).serialize();
+            let formData = $(this).serialize();
 
-        $.ajax({
-            url: "/students/update",
-            type: "POST",
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection
-            },
-            success: function (response) {
-                alert(response.message);
-                $("#edit-student").modal("hide");
-                // Optional: refresh table/list
-                setTimeout(function() {
-                    location.reload(); // Reload the page to see the updated student
-                }, 3000); // Optional: delay for better UX
-            },
-            error: function (e) {
-                alert("Error updating student." + e.responseJSON.message);
-            }
+            $.ajax({
+                url: "/students/update",
+                type: "POST",
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF protection
+                },
+                success: function(response) {
+                    alert(response.message);
+                    $("#edit-student").modal("hide");
+                    // Optional: refresh table/list
+                    setTimeout(function() {
+                        location.reload(); // Reload the page to see the updated student
+                    }, 3000); // Optional: delay for better UX
+                },
+                error: function(e) {
+                    alert("Error updating student." + e.responseJSON.message);
+                }
+            });
         });
+
     });
-
-});
-
 </script>
 
 @endpush

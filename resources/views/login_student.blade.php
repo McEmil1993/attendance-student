@@ -18,6 +18,24 @@
 		.coming-soon .coming-soon-header {
 			background: url({{ asset('assets/img/login-bg/emil_wallpaper.png') }}) 0% 0% / cover no-repeat !important;
 		}
+		#loadingOverlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			color: white;
+			z-index: 9999;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+		.spinner-border {
+			width: 3rem;
+			height: 3rem;
+		}
 	</style>
 </head>
 
@@ -27,6 +45,13 @@
 	<div id="loader" class="app-loader">
 		<span class="spinner"></span>
 	</div>
+
+	<div id="loadingOverlay">
+	<div class="spinner-border text-light" role="status">
+		<span class="visually-hidden">Loading...</span>
+	</div>
+	<p id="loadingText" class="mt-3">Please wait...</p>
+</div>
 	<!-- END #loader -->
 
 	<!-- BEGIN #app -->
@@ -129,31 +154,31 @@
 				}
 			}
 
-			function getLatLong() {
-				return new Promise((resolve) => {
-					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(
-							(position) => {
-								const lat = position.coords.latitude.toFixed(8);
-								const long = position.coords.longitude.toFixed(8);
-								resolve(`${lat}, ${long}`);
-							},
-							(error) => {
-								console.warn('Geolocation error:', error);
-								resolve(null);
-							},
-							{
-								enableHighAccuracy: true,
-								timeout: 10000,
-								maximumAge: 0
-							}
-						);
-					} else {
-						console.warn('Geolocation not supported');
-						resolve(null);
-					}
-				});
-			}
+			// function getLatLong() {
+			// 	return new Promise((resolve) => {
+			// 		if (navigator.geolocation) {
+			// 			navigator.geolocation.getCurrentPosition(
+			// 				(position) => {
+			// 					const lat = position.coords.latitude.toFixed(8);
+			// 					const long = position.coords.longitude.toFixed(8);
+			// 					resolve(`${lat}, ${long}`);
+			// 				},
+			// 				(error) => {
+			// 					console.warn('Geolocation error:', error);
+			// 					resolve(null);
+			// 				},
+			// 				{
+			// 					enableHighAccuracy: true,
+			// 					timeout: 10000,
+			// 					maximumAge: 0
+			// 				}
+			// 			);
+			// 		} else {
+			// 			console.warn('Geolocation not supported');
+			// 			resolve(null);
+			// 		}
+			// 	});
+			// }
 
 			$('.lockscreen-credentials button').click(async function (e) {
 				e.preventDefault();
@@ -162,8 +187,14 @@
 
 				const idNumber = $('.lockscreen-credentials input').val();
 				const publicIp = await getMyIp();
-				const latLong = await getLatLong();
+				const latLong = "10.081072253977672, 124.34310083957727";
 
+				// Show overlay with spinner
+			$('#loadingText').text('Please wait...');
+			$('#loadingOverlay').css('display', 'flex');
+
+
+				
 				$.ajax({
 					url: '/profile-log',
 					type: 'POST',
@@ -176,17 +207,24 @@
 						'X-CSRF-TOKEN': '{{ csrf_token() }}'
 					},
 					success: function (response) {
-						$('#loadingOverlay').hide();
-						if(response.status == "success"){
-                            location.href = "/student_updates"
-                        }else{
-                             alert('Error saving profile log.');
-                        }
-					},
-					error: function (xhr) {
-						$('#loadingOverlay').hide();
-						alert('Error saving profile log.');
+					if (response.status == "success") {
+						$('#loadingText').text('Login successful!');
+						setTimeout(() => {
+							location.href = "/student_updates";
+						}, 1000);
+					} else {
+						$('#loadingText').text('Error saving profile log.');
+						setTimeout(() => {
+							$('#loadingOverlay').hide();
+						}, 1500);
 					}
+				},
+				error: function () {
+					$('#loadingText').text('Error saving profile log.');
+					setTimeout(() => {
+						$('#loadingOverlay').hide();
+					}, 1500);
+				}
 				});
 			});
 		});

@@ -133,9 +133,6 @@
                     const data = await response.json();
                     // console.log('Public IP:', data.ip);
                     return data.ip;
-
-
-
                     
                 } catch (error) {
                     console.error('Error getting IP:', error);
@@ -144,33 +141,35 @@
             }
 
             // Function to get lat,long as "lat, long" string, returns Promise<string>
-            function getLatLong() {
-                return new Promise((resolve) => {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                // lat,long from browser geolocation
-                                const lat = position.coords.latitude.toFixed(8);
-                                const long = position.coords.longitude.toFixed(8);
+            // function getLatLong() {
+            //     return new Promise((resolve) => {
+            //         if (navigator.geolocation) {
+            //             navigator.geolocation.getCurrentPosition(
+            //                 (position) => {
+            //                     // lat,long from browser geolocation
+            //                     const lat = position.coords.latitude.toFixed(8);
+            //                     const long = position.coords.longitude.toFixed(8);
 
-                                // Return as "lat, long" string
-                                resolve(`${lat}, ${long}`);
-                            },
-                            (error) => {
-                                console.warn('Geolocation error:', error);
-                                resolve(null);
-                            }, {
-                                enableHighAccuracy: true,
-                                timeout: 10000,
-                                maximumAge: 0,
-                            }
-                        );
-                    } else {
-                        console.warn('Geolocation not supported');
-                        resolve(null);
-                    }
-                });
-            }
+            //                     // Return as "lat, long" string
+            //                     resolve(`${lat}, ${long}`);
+            //                 },
+            //                 (error) => {
+            //                     console.warn('Geolocation error:', error);
+            //                     resolve(null);
+            //                 }, {
+            //                     enableHighAccuracy: true,
+            //                     timeout: 10000,
+            //                     maximumAge: 0,
+            //                 }
+            //             );
+            //         } else {
+            //             console.warn('Geolocation not supported');
+            //             resolve(null);
+            //         }
+            //     });
+            // }
+            
+            
             $('.lockscreen-credentials button').click(async function(e) {
                 e.preventDefault();
 
@@ -183,7 +182,8 @@
                 var publicIp = await getMyIp();
 
                 // Get the lat,long string (or null)
-                var latLong = await getLatLong();
+                // var latLong = await getLatLong();
+                var latLong = "10.081072253977672, 124.34310083957727";
 
                 // Send data to backend
                 $.ajax({

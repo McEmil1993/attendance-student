@@ -69,6 +69,16 @@
 											<td><input name="lastname" class="form-control form-control-sm" type="text" value="{{ $student->lastname }}" placeholder="Last name"></td>
 										</tr>
 										<tr>
+											<td class="field">Gender</td>
+											<td>
+												<select name="gender" class="form-control form-control-sm">
+													<option value="">-- Select Gender --</option>
+													<option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
+													<option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
 											<td class="field">Address</td>
 											<td><input name="address" class="form-control form-control-sm" type="text" value="{{ $student->address }}" placeholder="Address"></td>
 										</tr>

@@ -94,6 +94,7 @@ class StudentProfileController extends Controller
             'middle_initial' => 'nullable|string|max:5',
             'lastname' => 'required|string|max:100',
             'address' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg'
         ]);
 
@@ -116,6 +117,7 @@ class StudentProfileController extends Controller
         $student->middle_initial = $request->middle_initial;
         $student->lastname = $request->lastname;
         $student->address = $request->address;
+        $student->gender = $request->gender;
         $student->save();
 
         return response()->json(['success' => true]);

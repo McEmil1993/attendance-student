@@ -295,8 +295,10 @@
 <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
 <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
 
-<script src="../assets/js/demo/gallery.demo.js"></script>
+<script src="{{ asset('/assets/js/demo/gallery.demo.js') }}"></script>
 <!-- ================== END page-js ================== -->
+
+
 
 <script>
     $(document).ready(function() {

@@ -5,7 +5,12 @@
     <link href="{{ asset('assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
         rel="stylesheet" />
+        
     <!-- ================== END page-css ================== -->
+
+    <!-- ================== BEGIN page-css ================== -->
+<link href="{{ asset('assets/plugins/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+<!-- ================== END page-css ================== -->
 @endpush
 
 @section('content')
@@ -129,6 +134,10 @@
     <script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
     <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
     <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+
+    <script src="{{ asset('assets/plugins/isotope-layout/dist/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/lightbox2/dist/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('/assets/js/demo/gallery.demo.js') }}"></script>
 <script>
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
 
@@ -380,11 +389,12 @@ if (!window.SpeechRecognition) {
                         block: block,
                         assessment_choice: assess
                     },
+                    
                     success: function(response) {
                         let tableData = response.map(function(item) {
                             return {
                                 id_number: `<span class="fw-bold">${item.student.id_number}</span>`,
-                                image: `<img src="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" class="rounded h-30px my-n1 mx-n1"/>`,
+                                image: `<a href="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" data-lightbox="gallery-group-1"><img src="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" class="rounded h-30px my-n1 mx-n1" /></a>`,
                                 fullname: `${item.student.lastname}, ${item.student.firstname} ${item.student.middle_initial}.`,
                                 gender: `<label class="badge ${item.student.gender === 'Female' ? 'bg-pink-300' : 'bg-blue-400'}">
                                     ${item.student.gender}

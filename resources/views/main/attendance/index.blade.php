@@ -16,6 +16,10 @@
     <link href="{{ asset('assets/plugins/select-picker/dist/picker.min.css') }}" rel="stylesheet" />
     <!-- ================== END page-css ================== -->
 
+    <!-- ================== BEGIN page-css ================== -->
+<link href="{{ asset('assets/plugins/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+<!-- ================== END page-css ================== -->
+
     <!-- ================== END page-css ================== -->
 
     <style>
@@ -140,11 +144,11 @@
                     <thead>
                         <tr>
                             <th width="1%">ID-Number</th>
+                            <th width="1%">Action</th>
                             <th width="1%" data-orderable="false">IMG</th>
                             <th class="text-nowrap">Fullname</th>
                             <th width="1%">Gender</th>
                             <th>Course - Year - Block</th>
-                            <th width="1%">Action</th>
                             <th width="1%">Date</th>
                         </tr>
                     </thead>
@@ -186,6 +190,11 @@
     <script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
     <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
     <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+
+
+    <script src="{{ asset('assets/plugins/isotope-layout/dist/isotope.pkgd.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/lightbox2/dist/js/lightbox.min.js') }}"></script>
+<script src="{{ asset('/assets/js/demo/gallery.demo.js') }}"></script>
 
 
     <script>
@@ -233,6 +242,10 @@
                             className: "text-start"
                         },
                         {
+                            data: "status",
+                            className: "text-start"
+                        },
+                        {
                             data: "image",
                             orderable: false,
                             className: "text-start"
@@ -241,6 +254,7 @@
                             data: "fullname",
                             className: "text-start"
                         },
+                         
                         {
                             data: "gender",
                             className: "text-start"
@@ -249,10 +263,7 @@
                             data: "course_year_block",
                             className: "text-start"
                         },
-                        {
-                            data: "status",
-                            className: "text-start"
-                        },
+                       
                         {
                             data: "date",
                             className: "text-start"
@@ -306,12 +317,6 @@
                         let tableData = response.map(function(item) {
                             return {
                                 id_number: `<span class="fw-bold">${item.student.id_number}</span>`,
-                                image: `<img src="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" class="rounded h-30px my-n1 mx-n1"/>`,
-                                fullname: `${item.student.lastname}, ${item.student.firstname} ${item.student.middle_initial}.`,
-                                gender: `<label class="badge ${item.student.gender === 'Female' ? 'bg-pink-300' : 'bg-blue-400'}">
-                                        ${item.student.gender}
-                                     </label>`,
-                                course_year_block: `${item.student.course} - ${item.student.year} - Block ${item.student.block}`,
                                 status: `
                                 <div class="form-check form-switch ms-auto">
                                     <input type="checkbox" class="form-check-input switch-red"
@@ -325,6 +330,14 @@
                                     </label>
                                 </div>
                             `,
+                                image: `<a href="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" data-lightbox="gallery-group-1"><img src="${item.student.student_profile_path || '/assets/img/user/user-12.jpg'}" class="rounded h-30px my-n1 mx-n1" /></a>`,
+                                fullname: `${item.student.lastname}, ${item.student.firstname} ${item.student.middle_initial}.`,
+                                 
+                                gender: `<label class="badge ${item.student.gender === 'Female' ? 'bg-pink-300' : 'bg-blue-400'}">
+                                        ${item.student.gender}
+                                     </label>`,
+                                course_year_block: `${item.student.course} - ${item.student.year} - Block ${item.student.block}`,
+                               
                                 date: (() => {
                                     if (!item.attend_date) return '';
                                     const date = new Date(item.attend_date);

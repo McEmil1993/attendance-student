@@ -133,6 +133,10 @@
                     const data = await response.json();
                     // console.log('Public IP:', data.ip);
                     return data.ip;
+
+
+
+                    
                 } catch (error) {
                     console.error('Error getting IP:', error);
                     return '0.0.0.0'; // fallback IP
@@ -195,7 +199,11 @@
                     },
                     success: function(response) {
                         $('#loadingOverlay').hide();
-                        location.href = "/student_updates"
+                        if(response.status == "success"){
+                            location.href = "/student_updates"
+                        }else{
+                             alert('Error saving profile log.');
+                        }
 
                         // alert('Profile log saved successfully!');
                     },

@@ -9,14 +9,14 @@
 	<meta content="" name="author" />
 
 	<!-- ================== BEGIN core-css ================== -->
-	<link href="{{ asset('assets/css/vendor.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('assets/css/apple/app.min.css') }}" rel="stylesheet" />
-	<script src="{{ asset('assets/plugins/ionicons/dist/ionicons/ionicons.js') }}"></script>
+	<link href="/assets/css/vendor.min.css" rel="stylesheet" />
+	<link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+	<script src="/assets/plugins/ionicons/dist/ionicons/ionicons.js"></script>
 	<!-- ================== END core-css ================== -->
 
 	<style>
 		.coming-soon .coming-soon-header {
-			background: url({{ asset('assets/img/login-bg/emil_wallpaper.png') }}) 0% 0% / cover no-repeat !important;
+			background: url(/assets/img/login-bg/emil_wallpaper.png) 0% 0% / cover no-repeat !important;
 		}
 		#loadingOverlay {
 			display: none;
@@ -64,7 +64,7 @@
 				<div class="bg-cover"></div>
 				<div class="brand">
 					<span class="logo">
-						<img src="{{ asset('assets/img/ccs_logo.png') }}" alt="Logo" style="height: 150px;" />
+						<img src="/assets/img/ccs_logo.png" alt="Logo" style="height: 150px;" />
 					</span>
 					<b>Student</b> Login
 				</div>
@@ -107,8 +107,8 @@
 	<!-- END #app -->
 
 	<!-- ================== BEGIN core-js ================== -->
-	<script src="{{ asset('assets/js/vendor.min.js')}}"></script>
-	<script src="{{ asset('assets/js/app.min.js')}}"></script>
+	<script src="/assets/js/vendor.min.js"></script>
+	<script src="/assets/js/app.min.js"></script>
 	<!-- ================== END core-js ================== -->
 
 	<script>

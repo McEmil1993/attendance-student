@@ -22,7 +22,7 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="{{ asset('assets/adminlte/css/adminlte.css') }}" as="style" />
+    <link rel="preload" href="/assets/adminlte/css/adminlte.css" as="style" />
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
@@ -38,7 +38,7 @@
         crossorigin="anonymous" />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="{{ asset('assets/adminlte/css/adminlte.css') }}" />
+    <link rel="stylesheet" href="/assets/adminlte/css/adminlte.css" />
     <style>
         #loadingOverlay {
             display: none;
@@ -62,7 +62,7 @@
 <!--begin::Body-->
 
 <body class="lockscreen bg-body-secondary"
-    style="background-image: url({{ asset('assets/img/login-bg/emil_wallpaper.png') }}) !important; ">
+    style="background-image: url(/assets/img/login-bg/emil_wallpaper.png) !important; ">
     <div id="loadingOverlay">please wait...</div>
     <div class="lockscreen-wrapper">
 
@@ -100,7 +100,7 @@
     </script>
     <!--end::Required Plugin(Bootstrap 5)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{ asset('assets/adminlte/js/adminlte.js') }}"></script>
+    <script src="/assets/adminlte/js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)-->
     <!--begin::OverlayScrollbars Configure-->
     <script>

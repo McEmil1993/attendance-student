@@ -8,9 +8,9 @@
 	<meta content="" name="author" />
 
 	<!-- ================== BEGIN core-css ================== -->
-	<link href="{{ asset('assets/css/vendor.min.css" rel="stylesheet') }}" />
-	<link href="{{ asset('assets/css/apple/app.min.css') }}" rel="stylesheet" />
-	<script src="{{ asset('assets/plugins/ionicons/dist/ionicons/ionicons.js') }}"></script>
+	<link href="/assets/css/vendor.min.css" rel="stylesheet" />
+	<link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+	<script src="/assets/plugins/ionicons/dist/ionicons/ionicons.js"></script>
 	<!-- ================== END core-css ================== -->
 </head>
 <body class='pace-top'>
@@ -27,7 +27,7 @@
 		<div class="login login-v2 fw-bold">
 			<!-- BEGIN login-cover -->
 			<div class="login-cover">
-				<div class="login-cover-img" style="background-image: url({{ asset('assets/img/login-bg/emil_wallpaper.png') }})" data-id="login-cover-image"></div>
+				<div class="login-cover-img" style="background-image: url(/assets/img/login-bg/emil_wallpaper.png)" data-id="login-cover-image"></div>
 				<div class="login-cover-bg"></div>
 			</div>
 			<!-- END login-cover -->
@@ -50,7 +50,7 @@
 
 				<!-- BEGIN login-content -->
 				<div class="login-content">
-					<form action="{{ route('register') }}" method="POST" class="fs-13px">
+					<form action="/register" method="POST" class="fs-13px">
                         @csrf
 						<div class="mb-3">
 							<label class="mb-2">Fullname <span class="text-danger">*</span></label>
@@ -82,7 +82,7 @@
 							<button type="submit" class="btn btn-theme d-block w-100 btn-lg h-45px fs-13px">Sign Up</button>
 						</div>
 						<div class="mb-4 pb-5">
-							Already a member? Click <a href="{{ route('login') }}">here</a> to login.
+							Already a member? Click <a href="/login">here</a> to login.
 						</div>
 						<hr class="bg-gray-600 opacity-2" />
 						<p class="text-center text-gray-600">
@@ -103,12 +103,12 @@
 	<!-- END #app -->
 
 	<!-- ================== BEGIN core-js ================== -->
-	<script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-	<script src="{{ asset('assets/js/app.min.js') }}"></script>
+	<script src="/assets/js/vendor.min.js"></script>
+	<script src="/assets/js/app.min.js"></script>
 	<!-- ================== END core-js ================== -->
 
 	<!-- ================== BEGIN page-js ================== -->
-	<script src="{{ asset('assets/js/demo/login-v2.demo.js') }}"></script>
+	<script src="/assets/js/demo/login-v2.demo.js"></script>
 	<!-- ================== END page-js ================== -->
 </body>
 </html>

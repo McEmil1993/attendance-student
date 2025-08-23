@@ -41,7 +41,7 @@
             <tbody>
                 <tr class="odd gradeX">
                     <td width="1%" class="fw-bold">1</td>
-                    <td width="1%" class="with-img"><img src="{{ asset('assets/img/user/user-12.jpg') }}"
+                    <td width="1%" class="with-img"><img src="/assets/img/user/user-12.jpg"
                             class="rounded h-30px my-n1 mx-n1" /></td>
                     <td>Trident</td>
                     <td>Internet Explorer 4.0</td>

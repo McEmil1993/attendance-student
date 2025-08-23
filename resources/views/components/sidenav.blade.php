@@ -31,7 +31,7 @@
                     </a>
                 </div>
                 <div class="menu-item pb-5px">
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+                    <form id="logout-form" action="/logout" method="POST" style="display:none;">
                         @csrf
                     </form>
 
@@ -56,7 +56,7 @@
 
             <!-- Attendance -->
             <div class="menu-item">
-                <a href="{{ route('student-attendance') }}" class="menu-link">
+                <a href="/student-attendance" class="menu-link">
                     <div class="menu-icon">
                         <ion-icon name="calendar-outline" class="bg-red md hydrated"></ion-icon>
                     </div>
@@ -66,7 +66,7 @@
 
             <!-- Assessments -->
             <div class="menu-item">
-                <a href="{{ route('assessments.index') }}" class="menu-link">
+                <a href="/assessments" class="menu-link">
                     <div class="menu-icon">
                         <ion-icon name="document-text-outline" class="bg-yellow md hydrated"></ion-icon>
                     </div>
@@ -75,7 +75,7 @@
             </div>
             <!-- Students Management -->
             <div class="menu-item">
-                <a href="{{ route('students-manage') }}" class="menu-link">
+                <a href="/students-manage" class="menu-link">
                     <div class="menu-icon">
                         <ion-icon name="people-outline" class="bg-blue md hydrated"></ion-icon>
                     </div>
@@ -85,7 +85,7 @@
 
             {{-- <!-- Courses -->
             <div class="menu-item">
-                <a href="{{ route('students-handle') }}" class="menu-link">
+                <a href="/students-handle" class="menu-link">
                     <div class="menu-icon">
                         <ion-icon name="library-outline" class="bg-purple md hydrated"></ion-icon>
                     </div>

@@ -7,9 +7,9 @@
 	<title>Color Admin | Page without Sidebar</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 	
-	<link href="{{ asset('assets/css/vendor.min.css') }}" rel="stylesheet" />
-	<link href="{{ asset('assets/css/apple/app.min.css') }}" rel="stylesheet" />
-	<script src="{{ asset('assets/plugins/ionicons/dist/ionicons/ionicons.js') }}"></script>
+	<link href="/assets/css/vendor.min.css" rel="stylesheet" />
+	<link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+	<script src="/assets/plugins/ionicons/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
 	<div id="loader" class="app-loader">
@@ -31,7 +31,7 @@
 							<p class="mb-2">{{ $student->course .' - '.$student->year .' | Block '.$student->block}}</p>
 							<a href="#" class="btn btn-xs btn-yellow" id="editProfileBtn">Edit Profile</a>
 						</div>
-						<form action="{{ route('student.logout') }}" method="POST">
+						<form action="/student/logout" method="POST">
 							@csrf
 
 							<button class="btn btn-default btn-xs me-1 mb-1" style="margin-left: 40px;" type="submit"><i class="fas fa-lg fa-fw me-10px fa-arrow-right"></i>Logout</button>
@@ -73,8 +73,8 @@
 											<td>
 												<select name="gender" class="form-control form-control-sm">
 													<option value="">-- Select Gender --</option>
-													<option value="Male" {{ $student->gender == 'Male' ? 'selected' : '' }}>Male</option>
-													<option value="Female" {{ $student->gender == 'Female' ? 'selected' : '' }}>Female</option>
+													<option value="Male" @selected($student->gender === 'Male')>Male</option>
+													<option value="Female" @selected($student->gender === 'Female')>Female</option>
 												</select>
 											</td>
 										</tr>
@@ -99,12 +99,12 @@
 	</div>
 
 	<!-- core-js -->
-	<script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-	<script src="{{ asset('assets/js/app.min.js') }}"></script>
+	<script src="/assets/js/vendor.min.js"></script>
+	<script src="/assets/js/app.min.js"></script>
 
 	<!-- page-js -->
-	<script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
-	<script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+	<script src="/assets/plugins/@highlightjs/cdn-assets/highlight.min.js"></script>
+	<script src="/assets/js/demo/render.highlight.js"></script>
 
 	<!-- ✅ Custom jQuery -->
 	<script>

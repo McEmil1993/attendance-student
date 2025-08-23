@@ -2,22 +2,22 @@
 
 @push('styles')
     <!-- ================== BEGIN page-css ================== -->
-    <link href="{{ asset('assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
+    <link href="/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
         rel="stylesheet" />
     <!-- ================== BEGIN page-css ================== -->
-    <link href="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/tag-it/css/jquery.tagit.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/spectrum-colorpicker2/dist/spectrum.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/select-picker/dist/picker.min.css') }}" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/ion-rangeslider/css/ion.rangeSlider.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/tag-it/css/jquery.tagit.css" rel="stylesheet" />
+    <link href="/assets/plugins/spectrum-colorpicker2/dist/spectrum.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/select-picker/dist/picker.min.css" rel="stylesheet" />
     <!-- ================== END page-css ================== -->
 
     <!-- ================== BEGIN page-css ================== -->
-<link href="{{ asset('assets/plugins/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+<link href="/assets/plugins/lightbox2/dist/css/lightbox.css" rel="stylesheet" />
 <!-- ================== END page-css ================== -->
 
     <!-- ================== END page-css ================== -->
@@ -164,37 +164,37 @@
 
 @push('scripts')
     <!-- ================== BEGIN page-js ================== -->
-    <script src="{{ asset('assets/plugins/datatables.net/js/dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
+    <script src="/assets/plugins/datatables.net/js/dataTables.min.js"></script>
+    <script src="/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
 
 
 
 
     <!-- ================== BEGIN page-js ================== -->
-    <script src="{{ asset('assets/plugins/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select2/dist/js/select2.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery-migrate/dist/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/tag-it/js/tag-it.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/clipboard/dist/clipboard.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/spectrum-colorpicker2/dist/spectrum.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/select-picker/dist/picker.min.js') }}"></script>
-    <script src="{{ asset('assets/js/demo/form-plugins.demo.js') }}"></script>
+    <script src="/assets/plugins/moment/min/moment.min.js"></script>
+    <script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="/assets/plugins/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="/assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+    <script src="/assets/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+    <script src="/assets/plugins/jquery.maskedinput/src/jquery.maskedinput.js"></script>
+    <script src="/assets/plugins/jquery-migrate/dist/jquery-migrate.min.js"></script>
+    <script src="/assets/plugins/tag-it/js/tag-it.min.js"></script>
+    <script src="/assets/plugins/clipboard/dist/clipboard.min.js"></script>
+    <script src="/assets/plugins/spectrum-colorpicker2/dist/spectrum.min.js"></script>
+    <script src="/assets/plugins/select-picker/dist/picker.min.js"></script>
+    <script src="/assets/js/demo/form-plugins.demo.js"></script>
 
-    <script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
-    <script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
-    <script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+    <script src="/assets/js/demo/table-manage-default.demo.js"></script>
+    <script src="/assets/plugins/@highlightjs/cdn-assets/highlight.min.js"></script>
+    <script src="/assets/js/demo/render.highlight.js"></script>
 
 
-    <script src="{{ asset('assets/plugins/isotope-layout/dist/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/lightbox2/dist/js/lightbox.min.js') }}"></script>
-<script src="{{ asset('/assets/js/demo/gallery.demo.js') }}"></script>
+    <script src="/assets/plugins/isotope-layout/dist/isotope.pkgd.min.js"></script>
+<script src="/assets/plugins/lightbox2/dist/js/lightbox.min.js"></script>
+<script src="//assets/js/demo/gallery.demo.js"></script>
 
 
     <script>

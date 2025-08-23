@@ -2,13 +2,13 @@
 
 @push('styles')
 <!-- ================== BEGIN page-css ================== -->
-<link href="{{ asset('assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css') }}"
+<link href="/assets/plugins/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+<link href="/assets/plugins/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css"
     rel="stylesheet" />
 <!-- ================== END page-css ================== -->
 
 <!-- ================== BEGIN page-css ================== -->
-<link href="{{ asset('assets/plugins/lightbox2/dist/css/lightbox.css') }}" rel="stylesheet" />
+<link href="/assets/plugins/lightbox2/dist/css/lightbox.css" rel="stylesheet" />
 <!-- ================== END page-css ================== -->
 @endpush
 
@@ -285,17 +285,17 @@
 
 @push('scripts')
 <!-- ================== BEGIN page-js ================== -->
-<script src="{{ asset('assets/plugins/datatables.net/js/dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/isotope-layout/dist/isotope.pkgd.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/lightbox2/dist/js/lightbox.min.js') }}"></script>
-<script src="{{ asset('assets/js/demo/table-manage-default.demo.js') }}"></script>
-<script src="{{ asset('assets/plugins/@highlightjs/cdn-assets/highlight.min.js') }}"></script>
-<script src="{{ asset('assets/js/demo/render.highlight.js') }}"></script>
+<script src="/assets/plugins/datatables.net/js/dataTables.min.js"></script>
+<script src="/assets/plugins/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/assets/plugins/datatables.net-responsive-bs5/js/responsive.bootstrap5.min.js"></script>
+<script src="/assets/plugins/isotope-layout/dist/isotope.pkgd.min.js"></script>
+<script src="/assets/plugins/lightbox2/dist/js/lightbox.min.js"></script>
+<script src="/assets/js/demo/table-manage-default.demo.js"></script>
+<script src="/assets/plugins/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="/assets/js/demo/render.highlight.js"></script>
 
-<script src="{{ asset('/assets/js/demo/gallery.demo.js') }}"></script>
+<script src="/assets/js/demo/gallery.demo.js"></script>
 <!-- ================== END page-js ================== -->
 
 

@@ -14,7 +14,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('login') }}">
+<form method="POST" action="login">
     @csrf
     <label>Email:</label><br>
     <input type="email" name="email" value="{{ old('email') }}" required><br>
@@ -25,6 +25,6 @@
     <button type="submit">Login</button>
 </form>
 
-<a href="{{ route('register') }}">Register</a>
+<a href="register">Register</a>
 </body>
 </html>

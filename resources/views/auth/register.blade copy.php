@@ -16,7 +16,7 @@
     </div>
 @endif
 
-<form method="POST" action="{{ route('register') }}">
+<form method="POST" action="/register">
     @csrf
 
     <label>Name:</label><br>
@@ -41,6 +41,6 @@
     <button type="submit">Register</button>
 </form>
 
-<a href="{{ route('login') }}">Login</a>
+<a href="/login">Login</a>
 </body>
 </html>

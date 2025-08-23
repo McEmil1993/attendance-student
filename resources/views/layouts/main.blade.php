@@ -6,9 +6,9 @@
     <title>{{ $title ?? 'Dashboard' }} | Color Admin</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <link href="{{ asset('assets/css/vendor.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/css/apple/app.min.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets/plugins/ionicons/dist/ionicons/ionicons.js') }}"></script>
+    <link href="/assets/css/vendor.min.css" rel="stylesheet" />
+    <link href="/assets/css/apple/app.min.css" rel="stylesheet" />
+    <script src="/assets/plugins/ionicons/dist/ionicons/ionicons.js"></script>
 
     @stack('styles')
 </head>
@@ -61,9 +61,9 @@
         @include('components.footer')
     </div>
 
-    <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
-    <script src="{{ asset('assets/js/app.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables.net/js/dataTables.min.js') }}"></script>
+    <script src="/assets/js/vendor.min.js"></script>
+    <script src="/assets/js/app.min.js"></script>
+    <script src="/assets/plugins/datatables.net/js/dataTables.min.js"></script>
     @stack('scripts')
     <script>
     let studentsTable;
